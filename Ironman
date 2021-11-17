@@ -1,0 +1,38 @@
+using System;
+using System.Threading.Tasks;
+using System.Threading;
+
+class Program {
+  public static void Main (string[] args) {
+  Console.WriteLine("____1sttime____");
+  Ironman ts = new Ironman();
+  ts.Damagestatus=55;
+  ts.Blast();
+  Console.WriteLine("____2ndtime____");
+  Ironman ts2 = new Ironman();
+  ts2.Damagestatus=39;
+  ts2.Blast();
+  }
+}
+
+class Ironman{
+    public int Damagestatus{get;set;}
+    public void Blast(){
+      if(Damagestatus<=40){
+        Console.WriteLine("Target is down, Enemy blasted");}
+      else{ Releaseshot(); }
+    }
+    //defining a task first
+    public static Task Repairsuit(){
+        return Task.Run( () => {Console.WriteLine("Damaged, Ironman wait 5 seconds");
+        } );
+      }
+    //defining the async method
+    public async void Releaseshot(){
+      await Repairsuit();
+      Thread.Sleep(4500);
+      Console.WriteLine("Repair success, shot released");
+      }
+}
+
+
